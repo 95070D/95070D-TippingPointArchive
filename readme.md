@@ -1,3 +1,12 @@
 # Team 95070D Code
 
-Use Channel dublincode
+
+## Code by Quinn
+
+Vex Robotics (VRC) Team 95070D
+
+Redwood Robotics
+
+Forks:
+
+> DublinCode

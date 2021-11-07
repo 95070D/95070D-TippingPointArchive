@@ -9,4 +9,6 @@ Redwood Robotics
 
 Forks:
 
-> DublinCode
+> Main [Don't use]
+
+> DublinCode (Code for the November 13 comp.)

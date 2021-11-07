@@ -296,9 +296,9 @@ int main(){
   BackLift.spinFor(reverse, 360, degrees, true);
   PID(0.9, 0.01, 0.05, 500, 0.5, 90, 40, 22);
   BackLift.spinFor(forward, 330, degrees, true);*/
-  PID(0.9, 0.01, 0.05, 500, 0.5, 90, 40, 55);
+  PID(1.5, 0.01, 0.05, 500, 0.5, 90, 40, 55);
   BackLift.spinFor(reverse, 360, degrees, true);
-  PID(0.9, 0.01, 0.05, 500, 0.5, 90, 40, -55);
+  PID(1.5, 0.01, 0.05, 500, 0.5, 90, 40, -55);
   BackLift.spinFor(forward, 330, degrees, true);  
   
   while(true){

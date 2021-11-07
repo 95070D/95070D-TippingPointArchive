@@ -292,14 +292,15 @@ int main(){
   vexcodeInit();
 
   //(double kP, double kI, double kD, double maxIntegral, double tolerance, double maximumSpeed, double minimumSpeed, double target)
-  PID(0.9, 0.01, 0.05, 500, 0.5, 90, 40, -22);
+  /*PID(0.9, 0.01, 0.05, 500, 0.5, 90, 40, -22);
   BackLift.spinFor(reverse, 360, degrees, true);
-// wait(0.1, sec);
-//  BackLift.spinFor(forward, 360, degrees, true);
-//  wait(0.1,sec);
-//  BackLift.spinFor(reverse, 380, degrees, true);
   PID(0.9, 0.01, 0.05, 500, 0.5, 90, 40, 22);
-  BackLift.spinFor(forward, 330, degrees, true);
+  BackLift.spinFor(forward, 330, degrees, true);*/
+  PID(0.9, 0.01, 0.05, 500, 0.5, 90, 40, 55);
+  BackLift.spinFor(reverse, 360, degrees, true);
+  PID(0.9, 0.01, 0.05, 500, 0.5, 90, 40, -55);
+  BackLift.spinFor(forward, 330, degrees, true);  
+  
   while(true){
    simpleDrive();
    armLift();

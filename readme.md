@@ -11,4 +11,4 @@ Forks:
 
 > Main [Don't use]
 
-> DublinCode (Code for the November 13 comp.)
+> DublinCompCode (Code for the November 13 comp.)

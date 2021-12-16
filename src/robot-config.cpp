@@ -13,11 +13,11 @@ motor LeftBack = motor(PORT7, ratio18_1, true);
 motor RightFront = motor(PORT8, ratio18_1, false);
 motor RightBack = motor(PORT16, ratio18_1, false);
 motor LeftLift = motor(PORT6, ratio36_1, false);
-motor HookArm = motor(PORT9, ratio36_1, false);
-motor BackLift = motor(PORT20, ratio36_1, false);
-controller Controller1 = controller(primary);
-inertial Inertial = inertial(PORT19);
 motor RightLift = motor(PORT10, ratio36_1, true);
+motor HookArm = motor(PORT9, ratio36_1, false);
+motor Forklift = motor(PORT20, ratio36_1, false);
+inertial Inertial = inertial(PORT19);
+controller Controller1 = controller(primary);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable

@@ -8,11 +8,11 @@ extern motor LeftBack;
 extern motor RightFront;
 extern motor RightBack;
 extern motor LeftLift;
-extern motor HookArm;
-extern motor BackLift;
-extern controller Controller1;
-extern inertial Inertial;
 extern motor RightLift;
+extern motor HookArm;
+extern motor Forklift;
+extern inertial Inertial;
+extern controller Controller1;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

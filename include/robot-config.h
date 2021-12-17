@@ -9,7 +9,7 @@ extern motor RightFront;
 extern motor RightBack;
 extern motor LeftLift;
 extern motor RightLift;
-extern motor HookArm;
+extern motor Clamp;
 extern motor Forklift;
 extern inertial Inertial;
 extern controller Controller1;

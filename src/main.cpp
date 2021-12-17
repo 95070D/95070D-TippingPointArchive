@@ -9,7 +9,7 @@
 // RightBack            motor         16              
 // LeftLift             motor         6               
 // RightLift            motor         10              
-// HookArm              motor         9               
+// Clamp                motor         9               
 // Forklift             motor         20              
 // Inertial             inertial      19              
 // Controller1          controller                    
@@ -19,13 +19,13 @@ using namespace vex;
 competition Competition;
 //Function for determining whether input is positive, negative, or 0
 int getSign (double inputValue) {
-if (inputValue > 0){
-return 1;
-}
-else if (inputValue < 0){
-return -1;
-}
-else return 0;
+  if (inputValue > 0){
+    return 1;
+  }
+  else if (inputValue < 0){
+    return -1;
+  }
+  else return 0;
 }
 /*Our code uses PID, a control loop used to help the robot move efficiently and accurately
 without overshooting its target position. PID takes in input based on the sensors
@@ -90,7 +90,7 @@ void PID (double kP, double kI, double kD, double maxIntegral, double tolerance,
 }
 //Void that controls the drivetrain based on inputs from the joysticks
 void simpleDrive(){
-  if(abs(Controller1.Axis2.position(percent))>abs(5)){
+  if(abs(Controller1.Axis2.position(percent))>abs(5)){ 
     RightBack.setVelocity(Controller1.Axis2.position(percent), percent);
     RightFront.setVelocity(Controller1.Axis2.position(percent), percent);
     RightBack.spin(forward);
@@ -113,39 +113,39 @@ void simpleDrive(){
 }
 //Void that controls the movement of the 4-bar lift
 void armLift(){
-if (Controller1.ButtonR1.pressing()) {
- LeftLift.setVelocity(90, percent);
- RightLift.setVelocity(90, percent);
- RightLift.spin(forward);
- LeftLift.spin(forward);
-}
-else if (Controller1.ButtonR2.pressing()){
- LeftLift.setVelocity(90, percent);
- RightLift.setVelocity(90, percent);
- LeftLift.spin(reverse);
- RightLift.spin(reverse);
-}
-else{
- LeftLift.setStopping(hold);
- RightLift.setStopping(hold);
- LeftLift.stop();
- RightLift.stop();
-}
+  if (Controller1.ButtonR1.pressing()) {
+    LeftLift.setVelocity(90, percent);
+    RightLift.setVelocity(90, percent);
+    RightLift.spin(forward);
+    LeftLift.spin(forward);
+  }
+  else if (Controller1.ButtonR2.pressing()){
+    LeftLift.setVelocity(90, percent);
+    RightLift.setVelocity(90, percent);
+    LeftLift.spin(reverse);
+    RightLift.spin(reverse);
+  }
+  else{
+    LeftLift.setStopping(hold);
+    RightLift.setStopping(hold);
+    LeftLift.stop();
+    RightLift.stop();
+  }
 }
 //Void that controls movement of the hook grabber at the end of the 6-bar
 void hookLift() {
-if(Controller1.ButtonL1.pressing()){
-  HookArm.setVelocity(50,percent);
-  HookArm.spin(forward);
-}
-else if(Controller1.ButtonL2.pressing()){
-  HookArm.setVelocity(50, percent);
-  HookArm.spin(reverse);
-}
-else{
-  HookArm.setStopping(hold);
-  HookArm.stop();
-}
+  if(Controller1.ButtonL1.pressing()){
+    Clamp.setVelocity(50,percent);
+    Clamp.spin(forward);
+  }
+  else if(Controller1.ButtonL2.pressing()){
+    Clamp.setVelocity(50, percent);
+    Clamp.spin(reverse);
+  }
+  else{
+    Clamp.setStopping(hold);
+    Clamp.stop();
+  }
 }
 //Void that controls movement of the goal manipulator at the back of the robot
 void backGoal(){
@@ -216,14 +216,14 @@ void pre_auton(void) {
 /*  a VEX Competition.                                                       */
 /*---------------------------------------------------------------------------*/
 void autonomous(void) {
-  int a=1;
+  int a=6;
   switch(a){
     case 1:
       PID(1, 0.01, 0, 500, 0.5, 90, 20, 20);
-      HookArm.spin(forward, 40, percent);
+      Clamp.spin(forward, 40, percent);
       wait(0.5, sec);
-      HookArm.stop(hold);
-      HookArm.spinFor(reverse, 45, degrees);
+      Clamp.stop(hold);
+      Clamp.spinFor(reverse, 45, degrees);
       PID(2, 0.01, 0, 500, 0.5, 90, 40, -16);
       wait(0.5, sec);
       turnClockwise(175);
@@ -235,81 +235,74 @@ void autonomous(void) {
       PID(2, 0.01, 0, 500, 0.5, 90, 40, 22);
       break;
     case 2:
-      HookArm.spinFor(forward, 40, degrees, false);
+      Clamp.spinFor(forward, 40, degrees, false);
       PID(4, 0.01, 0.01, 500, 0.5, 95, 40, 43);
-      HookArm.spin(forward, 80, percent);
+      Clamp.spin(forward, 80, percent);
       wait(0.25, sec);
-      HookArm.stop(hold);
+      Clamp.stop(hold);
       PID(2, 0.01, 0.05, 500, 0.5, 90, 40, -43);
-      HookArm.spinFor(reverse, 60, degrees, true);
+      Clamp.spinFor(reverse, 60, degrees, true);
       break;
     case 3:
-      HookArm.spinFor(forward, 40, degrees,false);
+      Clamp.spinFor(forward, 40, degrees,false);
       PID(4, 0, 0, 1000, 0.5, 95, 40, 43);
-      HookArm.spin(forward, 80, percent);
+      Clamp.spin(forward, 80, percent);
       wait(0.25, sec);
-      HookArm.stop(hold);
+      Clamp.stop(hold);
       PID(1, 0.05, 0.1, 1000, 0.5, 95, 20, -30);
-      HookArm.spinFor(reverse, 90, degrees);
+      Clamp.spinFor(reverse, 90, degrees);
       wait(0.5, sec);
       PID(1, 0.05, 0.1, 1000, 0.5, 95, 20, -9);
       wait(0.5, sec);
       turnCounterClockwise(30);
       PID(1, 0.05, 0.1, 500, 0.5, 95, 20, 58);
-      HookArm.spin(forward, 80, percent);
+      Clamp.spin(forward, 80, percent);
       wait(0.75, sec);
-      HookArm.stop();
+      Clamp.stop();
       PID(1, 0.05, 0.1, 1000, 0.5, 95, 20, -35);
       break;
     case 4:
       PID(0.75, 0.01, 0.05, 500, 0.5, 90, 20, 24);
-      HookArm.spin(forward, 40, percent);
+      Clamp.spin(forward, 40, percent);
       wait(1, sec);
-      HookArm.spinFor(reverse, 60, degrees);
+      Clamp.spinFor(reverse, 60, degrees);
       break;
     case 5:
       break;
     case 6:
-      Inertial.calibrate();
-      RightLift.stop(hold);
-      LeftLift.stop(hold);
-      wait(2.5, sec);
-      PID(1, 0.05, 0.2, 1000, 0.5, 60, 10, 54);
-      wait(1, sec);
-      HookArm.spin(forward, 40, percent);
-      wait(1, sec);
-      HookArm.stop(hold);
-      PID(1, 0.05, 0.1, 1000, 0.5, 60, 10, -36);
-      wait(1, sec);
-      HookArm.spinFor(reverse, 75, degrees);
-      PID(1, 0.05, 0.1, 1000, 0.5, 60, 10, -18);
-      wait(1, sec); 
-      turnCounterClockwise(25);
-      wait(1, sec);
-      PID(0.5, 0.05, 0.1, 1000, 0.5, 60, 10, 63.8122);
-      wait(1, sec);
-      HookArm.spin(forward, 40, percent);
-      wait(1, sec);
-      HookArm.stop(hold);
-      turnCounterClockwise(115);
-      wait(1, sec);
-      PID(1, 0.05, 0.1, 1000, 0.5, 60, 10, 38.58756);
-      wait(0.5, sec);
-      HookArm.spinFor(reverse, 75, degrees);
-      turnClockwise(118.5);
-      wait(1, sec);
-      PID(1, 0.05, 0.1, 1000, 0.5, 60, 10, 38.58756);
-      wait(1, sec);
-      HookArm.spin(forward, 40, percent);
-      wait(1, sec);
-      HookArm.stop(hold);
-      PID(1, 0.05, 0.1, 1000, 0.5, 60, 10, 60);
-    case 7:
-      HookArm.spinFor(forward, 20, degrees,false);
+      Clamp.spinFor(forward, 20, degrees,false);
       PID(4, 0.01, 0.01, 1000, 0.5, 95, 20, 43);
-      HookArm.spin(forward, 80, percent);
+      Clamp.spin(forward, 80, percent);
       wait(0.4, sec);
-      HookArm.stop(hold);
+      Clamp.stop(hold);
+      Forklift.spinFor(forward, 1050, degrees, false);
+      PID(1, 0.05, 0.1, 1000, 0.5, 95, 20, -20);
+      LeftLift.spin(reverse, 25, percent);
+      RightLift.spin(reverse, 25, percent);
+      wait(0.25, sec);
+      LeftLift.stop(hold);
+      RightLift.stop(hold);
+      turnClockwise(125);
+      wait(0.25, sec);
+      Clamp.spinFor(reverse, 40, degrees);
+      PID(1, 0.05, 0.1, 1000, 0.5, 95, 20, -35);
+      Forklift.spinFor(reverse, 270, degrees, false);
+      wait(0.5, sec);
+      PID(2, 0.05, 0.1, 1000, 0.5, 95, 20, -45);
+      wait(0.5, sec);
+      turnClockwise(55);
+      wait(0.5, sec);
+      Forklift.spinFor(forward, 270, degrees);
+      wait(0.25, sec);
+      PID(2, 0.05, 0.1, 1000, 0.5, 95, 20, 30);
+      Clamp.spinFor(forward, 35, degrees);
+      PID(2, 0.05, 0.1, 1000, 0.5, 95, 20, 30);      
+    case 7:
+      Clamp.spinFor(forward, 20, degrees,false);
+      PID(4, 0.01, 0.01, 1000, 0.5, 95, 20, 43);
+      Clamp.spin(forward, 80, percent);
+      wait(0.4, sec);
+      Clamp.stop(hold);
       Forklift.spinFor(forward, 1050, degrees, false);
       PID(1, 0.05, 0.1, 1000, 0.5, 95, 20, -20);
       LeftLift.spin(reverse, 25, percent);
@@ -333,9 +326,9 @@ void autonomous(void) {
       break;
     case 8:
       PID(2, 0.05, 0.05, 500, 0.5, 95, 20, 21);
-      HookArm.spin(forward, 80, percent);
+      Clamp.spin(forward, 80, percent);
       wait(0.4, sec);
-      HookArm.stop(hold);
+      Clamp.stop(hold);
       turnClockwise(45);
       PID(2, 0.05, 0.05, 500, 0.5, 95, 20, -93);
       turnCounterClockwise(90);
@@ -347,7 +340,7 @@ void autonomous(void) {
 /*  turnCounterClockwise(145);
       wait(0.5, sec);
       PID(1, 0.05, 0.1, 1000, 0.5, 60, 10, 33);
-      HookArm.spinFor(reverse, 75, degrees);
+      Clamp.spinFor(reverse, 75, degrees);
       turnClockwise(90);
       wait(0.5, sec);
       PID(1, 0.05, 0.1, 1000, 0.5, 60, 10, 24);
@@ -356,12 +349,12 @@ void autonomous(void) {
       wait(0.5, sec);
       PID(1, 0.05, 0.1, 1000, 0.5, 60, 10, 75);
       wait(0.5, sec);
-      HookArm.spin(forward, 40, percent);
+      Clamp.spin(forward, 40, percent);
       wait(1, sec);
-      HookArm.stop(hold);
+      Clamp.stop(hold);
       PID(1, 0.05, 0.1, 1000, 0.5, 60, 10, -85);
       wait(0.5, sec);
-      HookArm.spinFor(reverse, 90, degrees);*/
+      Clamp.spinFor(reverse, 90, degrees);*/
 /*---------------------------------------------------------------------------*/
 /*                              User Control Task                            */
 /*  This task is used to control your robot during the user control phase of */
@@ -385,15 +378,16 @@ void usercontrol(void) {
       Forklift.stop(hold);
       RightLift.stop(hold);
       LeftLift.stop(hold);
-
+      Clamp.stop(hold);
       while((Controller1.ButtonY.pressing() && Controller1.ButtonA.pressing()) == false){
-          wait(1, sec);
-        }
+        wait(1, sec);
+      }
     }
   }
     wait(15, msec);
    // Sleep the task for a short amount of time to prevent wasted resources.
 }
+
 int main() {
  // Set up callbacks for autonomous and driver control periods.
  Competition.autonomous(autonomous);
